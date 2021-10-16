@@ -12,5 +12,6 @@ inputField.addEventListener("keyup", e=> {
 });
 
 function requestApi(city) {
+    // Console.log the city
     console.log(city);
 }
