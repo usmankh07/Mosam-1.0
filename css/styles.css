@@ -27,7 +27,7 @@ body {
     font-size: 21px;
     color: #615ba7;
     border-bottom: 1px solid #cac7e0;
-    font-weight: 500;
+    font-weight: 600;
     padding: 16px 15px;
 }
 
@@ -36,7 +36,7 @@ header i {
     font-size: 0px;
     margin-right: 8px;
 }
-.wrapper.active header {
+.wrapper.active header i{
     font-size: 30px;
     margin-left: 5px;
 }
@@ -76,6 +76,9 @@ header i {
 .input-part input{
     text-align: center;
     border: 1px solid #a09ccc;
+}
+.wrapper.active .input-part {
+    display: none;
 }
 .input-part input:is(:focus, :valid) {
     border: 2px solid #8881c2;
