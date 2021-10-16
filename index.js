@@ -1,7 +1,9 @@
+
 const wrapper = document.querySelector('.wrapper'),
 inputPart = wrapper.querySelector('.input-part'),
 infoTxt = inputPart.querySelector('.info-txt'),
-inputField = inputPart.querySelector('input');
+inputField = inputPart.querySelector('input'),
+locationBtn = inputPart.querySelector('button');
 
 inputField.addEventListener("keyup", e => {
 
@@ -12,12 +14,43 @@ inputField.addEventListener("keyup", e => {
 });
 
 
-let apiKey = 'a78e86f0f4624d994abc708c0c0844a7'; 
+
+
+locationBtn.addEventListener("click", ()=>{
+    if (navigator.geolocation) { // if browser support geolocation api
+        navigator.geolocation.getCurrentPosition(onSuccess, onError);
+    } else {
+        console.log("Your browser doesn't support geolocation api");
+    }
+});
+
+function onSuccess(position) {
+    const { latitude, longitude} = position.coords; // getting lat and longitude of the user device from coords obj
+    api = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`;
+
+    
+    
+}
+
+
+function onError(err) {
+    infoTxt.innerHTML = err.message;
+    infoTxt.classList.add("error");
+
+}
+let apiKey; 
+
 
 function requestApi(city) {
     let api = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-    fetch(api).then(response => console.table(response.json()))
+   
 }
+
+function weatherDetails(info) {
+    console.log(info);
+}
+
+
 
 
 
