@@ -27,6 +27,7 @@ locationBtn.addEventListener("click", ()=>{
 function onSuccess(position) {
     const { latitude, longitude} = position.coords; // getting lat and longitude of the user device from coords obj
     api = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`;
+    // This is enough 28:54
 
     
     
