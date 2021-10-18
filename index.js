@@ -3,7 +3,9 @@ const wrapper = document.querySelector('.wrapper'),
 inputPart = wrapper.querySelector('.input-part'),
 infoTxt = inputPart.querySelector('.info-txt'),
 inputField = inputPart.querySelector('input'),
-locationBtn = inputPart.querySelector('button');
+locationBtn = inputPart.querySelector('button'),
+wIcon = wrapper.querySelector('.weather-part img'),
+backBtn = wrapper.querySelector('header i');
 
 
 // Keyup is used whenever any key is released from the keyboard
@@ -16,12 +18,12 @@ inputField.addEventListener("keyup", e => {
 });
 
 let api;
-let apiKey;
+let apiKey = 'a78e86f0f4624d994abc708c0c0844a7' ;
 
 
 function requestApi(city) {
     api = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-    console.log(result);
+    fetchData();
    
 }
 
@@ -67,10 +69,61 @@ function fetchData() {
 
 
 
-
+// Here the fun stuff is happening, where I am
 function weatherDetails(info) {
+    if (info.cod == "404") {
+        infoTxt.innerHTML = `${inputField.value} is not a valid city name!!!`
+        infoTxt.classList.replace("pending", "error");
+    } else {
+
+        const city = info.name;
+        const country = info.sys.country;
+        const {description, id} = info.weather[0];
+        const {feels_like, humidity, temp} = info.main;
+
+        if (id == 800){
+            wIcon.src = "./icons/clear.svg"
+        }
+        else if (id == 801 && id <= 804){
+            wIcon.src = "./icons/storm.svg";
+        }
+        else if (id == 711){
+            wIcon.src = "./icons/haze.svg";
+        }
+        else if (id >= 200 && id <= 232){
+            wIcon.src = "./icons/storm.svg";
+        }
+        else if ( (id >= 300 && id <= 321) || (id >= 500 && id <= 531) ){
+            wIcon.src = "./icons/rain.svg";
+        }
+        else if (id >= 600 && id <= 622){
+            wIcon.src = "./icons/snow.svg";
+        }
+        else if (id >= 700 && id <= 781){
+            wIcon.src = "./icons/haze.svg";
+        }
+        else if (id >= 700 && id <= 781){
+            wIcon.src = "./icons/haze.svg";
+        }
+
+
+        // Let's pass these values to the html elements to actually see the results.
+
+        wrapper.querySelector('.temp .numb').innerText = Math.round(temp);
+        wrapper.querySelector('.weather').innerText = description;
+        wrapper.querySelector('.column .temp .numb-2').innerText = Math.round(feels_like);
+        wrapper.querySelector('.humidity .numb').innerText = humidity + '%';
+        wrapper.querySelector('.location span').innerText = city + ' ' + country;
+
+        infoTxt.classList.remove("pending", "error");
+        wrapper.classList.add("active");
+    }
     console.log(info);
 }
+
+backBtn.addEventListener('click',  ()=> {
+    wrapper.classList.remove("active");
+})
 
 
 
