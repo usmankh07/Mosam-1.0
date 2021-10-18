@@ -1,4 +1,4 @@
-
+// Making variable to get the document elements
 const wrapper = document.querySelector('.wrapper'),
 inputPart = wrapper.querySelector('.input-part'),
 infoTxt = inputPart.querySelector('.info-txt'),
@@ -56,7 +56,7 @@ function onError(err) {
 
 }
 
-// FetchData
+// This is used to fetch data from the api key being used.
 function fetchData() {
     infoTxt.innerHTML = "Getting weather details...";
     infoTxt.classList.add("pending");
